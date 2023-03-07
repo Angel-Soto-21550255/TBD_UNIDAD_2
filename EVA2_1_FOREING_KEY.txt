@@ -1,0 +1,271 @@
+Microsoft Windows [Versión 10.0.19045.2604]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\angel>"C:\Users\angel\Desktop\MySQL Shell.lnk"
+MySQL Shell 8.0.32
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS >
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.32 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create database eva_2;
+Query OK, 1 row affected (0.0973 sec)
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| agencia            |
+| eva_2              |
+| evaluacion_1       |
+| human_resources    |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  SQL > use eva_2
+Default schema set to `eva_2`.
+Fetching global names, object names from `eva_2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table factura(
+                                      -> id int auto_increment key,
+                                      -> id_cliente int not null);
+Query OK, 0 rows affected (0.1397 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc factura;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| id_cliente | int  | NO   |     | NULL    |                |
++------------+------+------+-----+---------+----------------+
+2 rows in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_clienete)
+                                      -> value(1);
+ERROR: 1054 (42S22): Unknown column 'id_clienete' in 'field list'
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(1);
+Query OK, 1 row affected (0.0449 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(2);
+Query OK, 1 row affected (0.0648 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(3);
+Query OK, 1 row affected (0.0230 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(4);
+Query OK, 1 row affected (0.0857 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(1);
+Query OK, 1 row affected (0.0839 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(2);
+Query OK, 1 row affected (0.0413 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(3);
+Query OK, 1 row affected (0.0402 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from factura;
++----+------------+
+| id | id_cliente |
++----+------------+
+|  1 |          1 |
+|  2 |          2 |
+|  3 |          3 |
+|  4 |          4 |
+|  5 |          1 |
+|  6 |          2 |
+|  7 |          3 |
++----+------------+
+7 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into factura(id_cliente) value(1);
+Query OK, 1 row affected (0.0850 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from factura;
++----+------------+
+| id | id_cliente |
++----+------------+
+|  1 |          1 |
+|  2 |          2 |
+|  3 |          3 |
+|  4 |          4 |
+|  5 |          1 |
+|  6 |          2 |
+|  7 |          3 |
+|  8 |          1 |
++----+------------+
+8 rows in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table DetalleFactura( id auto_increment key,
+                                      -> id_factura int,
+                                      -> id_producto int,
+                                      -> foreign key(id_factura)
+                                      -> reference factura(id)
+                                      -> on dalete restrict
+                                      -> on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment key,
+id_factura int,
+id_producto int,
+foreign key(id_factura)
+ref' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table DetalleFactura( id auto_increment key, id_factura int, id_producto int, foreign key(id_factura) references factura(id) on dalete restrict on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment key, id_factura int, id_producto int, foreign key(id_factura) ref' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table DetalleFactura( id auto_increment key, id_factura int, id_producto int, foreign key(id_factura) references factura(id) on delete restrict on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment key, id_factura int, id_producto int, foreign key(id_factura) ref' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table DetalleFactura( id int auto_increment key, id_factura int, id_producto int, foreign key(id_factura) references factura(id) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.1821 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc DetalleFactura;
++-------------+------+------+-----+---------+----------------+
+| Field       | Type | Null | Key | Default | Extra          |
++-------------+------+------+-----+---------+----------------+
+| id          | int  | NO   | PRI | NULL    | auto_increment |
+| id_factura  | int  | YES  | MUL | NULL    |                |
+| id_producto | int  | YES  |     | NULL    |                |
++-------------+------+------+-----+---------+----------------+
+3 rows in set (0.0020 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(9,10);
+ERROR: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`eva_2`.`detallefactura`, CONSTRAINT `detallefactura_ibfk_1` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(1,10);
+Query OK, 1 row affected (0.0744 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(2,10);
+Query OK, 1 row affected (0.0838 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(3,10);
+Query OK, 1 row affected (0.0875 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from DetalleFactura;
++----+------------+-------------+
+| id | id_factura | id_producto |
++----+------------+-------------+
+|  2 |          1 |          10 |
+|  3 |          2 |          10 |
+|  4 |          3 |          10 |
++----+------------+-------------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(4,10);
+Query OK, 1 row affected (0.0853 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(5,10);
+Query OK, 1 row affected (0.0892 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > insert into DetalleFactura(id_factura, id_producto) value(6,10);
+Query OK, 1 row affected (0.0812 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from DetalleFactura;
++----+------------+-------------+
+| id | id_factura | id_producto |
++----+------------+-------------+
+|  2 |          1 |          10 |
+|  3 |          2 |          10 |
+|  4 |          3 |          10 |
+|  5 |          4 |          10 |
+|  6 |          5 |          10 |
+|  7 |          6 |          10 |
++----+------------+-------------+
+6 rows in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc DetalleFactura;
++-------------+------+------+-----+---------+----------------+
+| Field       | Type | Null | Key | Default | Extra          |
++-------------+------+------+-----+---------+----------------+
+| id          | int  | NO   | PRI | NULL    | auto_increment |
+| id_factura  | int  | YES  | MUL | NULL    |                |
+| id_producto | int  | YES  |     | NULL    |                |
++-------------+------+------+-----+---------+----------------+
+3 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > select distinct(id_factura) from detallefactura;
++------------+
+| id_factura |
++------------+
+|          1 |
+|          2 |
+|          3 |
+|          4 |
+|          5 |
+|          6 |
++------------+
+6 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate  from factura where id=1;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate  from factura where id=1' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > delete  from factura where id=1;
+ERROR: 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`eva_2`.`detallefactura`, CONSTRAINT `detallefactura_ibfk_1` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate  from factura where id=4;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate  from factura where id=4' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate  from factura where id=7;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate  from factura where id=7' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate  from factura where id=8;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate  from factura where id=8' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate  from factura where id=5;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate  from factura where id=5' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from factura;
++----+------------+
+| id | id_cliente |
++----+------------+
+|  1 |          1 |
+|  2 |          2 |
+|  3 |          3 |
+|  4 |          4 |
+|  5 |          1 |
+|  6 |          2 |
+|  7 |          3 |
+|  8 |          1 |
++----+------------+
+8 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > update factura
+                                      -> set id=4
+                                      -> where id=3;
+ERROR: 1062 (23000): Duplicate entry '4' for key 'factura.PRIMARY'
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate from factura where id=1;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate from factura where id=1' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate from factura where id=5;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate from factura where id=5' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > delate from factura where id=8;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delate from factura where id=8' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from factura;
++----+------------+
+| id | id_cliente |
++----+------------+
+|  1 |          1 |
+|  2 |          2 |
+|  3 |          3 |
+|  4 |          4 |
+|  5 |          1 |
+|  6 |          2 |
+|  7 |          3 |
+|  8 |          1 |
++----+------------+
+8 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > update detallefactura set id_factura=10 where id_factura=1;
+ERROR: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`eva_2`.`detallefactura`, CONSTRAINT `detallefactura_ibfk_1` FOREIGN KEY (`id_factura`) REFERENCES `factura` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE)
+ MySQL  localhost:3306 ssl  eva_2  SQL > update detallefactura set id_factura=8 where id_factura=1;
+Query OK, 1 row affected (0.0671 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from detsllefactura;
+ERROR: 1146 (42S02): Table 'eva_2.detsllefactura' doesn't exist
+ MySQL  localhost:3306 ssl  eva_2  SQL > select * from detallefactura;
++----+------------+-------------+
+| id | id_factura | id_producto |
++----+------------+-------------+
+|  2 |          8 |          10 |
+|  3 |          2 |          10 |
+|  4 |          3 |          10 |
+|  5 |          4 |          10 |
+|  6 |          5 |          10 |
+|  7 |          6 |          10 |
++----+------------+-------------+
+6 rows in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > update detallefactura set where id_factura=2;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id_factura=2' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > update detallefactura set where id=2;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id=2' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > update detallefactura where id = 2;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id = 2' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > show  table;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > show  tables;
++-----------------+
+| Tables_in_eva_2 |
++-----------------+
+| detallefactura  |
+| factura         |
++-----------------+
+2 rows in set (0.0025 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL >
