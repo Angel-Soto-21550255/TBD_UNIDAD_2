@@ -1,0 +1,152 @@
+Microsoft Windows [Versión 10.0.19045.2604]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\angel>"C:\Users\angel\Desktop\MySQL Shell.lnk"
+MySQL Shell 8.0.32
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.32 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > \use eva_2
+Default schema set to `eva_2`.
+Fetching global names, object names from `eva_2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table salesreps(
+                                      -> ID int auto_increment,
+                                      -> last_name varchar(30),
+                                      -> first_name varchar(30),
+                                      -> commission double ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table salesreps( ID int auto_increment key,  last_name varchar(30), first_name varchar(30), commission double);
+Query OK, 0 rows affected (0.4942 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc salesreps;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| ID         | int         | NO   | PRI | NULL    | auto_increment |
+| last_name  | varchar(30) | YES  |     | NULL    |                |
+| first_name | varchar(30) | YES  |     | NULL    |                |
+| commission | double      | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0526 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table customers (id int auto_increment key, last_name varchar(50), firs_tname varchar(50), company_name varchar(50), street1 varchar(30), street2 varchar(30), city varchar(40), state varchar(40), zipcode varchar(30), phone int, fax varchar(40), email varchar(30), S_ID int);
+Query OK, 0 rows affected (0.4361 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc customers;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| id           | int         | NO   | PRI | NULL    | auto_increment |
+| last_name    | varchar(50) | YES  |     | NULL    |                |
+| firs_tname   | varchar(50) | YES  |     | NULL    |                |
+| company_name | varchar(50) | YES  |     | NULL    |                |
+| street1      | varchar(30) | YES  |     | NULL    |                |
+| street2      | varchar(30) | YES  |     | NULL    |                |
+| city         | varchar(40) | YES  |     | NULL    |                |
+| state        | varchar(40) | YES  |     | NULL    |                |
+| zipcode      | varchar(30) | YES  |     | NULL    |                |
+| phone        | int         | YES  |     | NULL    |                |
+| fax          | varchar(40) | YES  |     | NULL    |                |
+| email        | varchar(30) | YES  |     | NULL    |                |
+| S_ID         | int         | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > create items(
+                                      -> O_ID int,
+                                      -> ID int auto_increment key,
+                                      -> P_ID int,
+                                      -> quantity int);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'items(
+O_ID int,
+ID int auto_increment key,
+P_ID int,
+quantity int)' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table items( O_ID int, ID int auto_increment key,  P_ID int, quantity int);
+Query OK, 0 rows affected (0.1554 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc items;
++----------+------+------+-----+---------+----------------+
+| Field    | Type | Null | Key | Default | Extra          |
++----------+------+------+-----+---------+----------------+
+| O_ID     | int  | YES  |     | NULL    |                |
+| ID       | int  | NO   | PRI | NULL    | auto_increment |
+| P_ID     | int  | YES  |     | NULL    |                |
+| quantity | int  | YES  |     | NULL    |                |
++----------+------+------+-----+---------+----------------+
+4 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > ^C
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table parts(
+                                      -> ID int auto_increment key,
+                                      -> description vatchar(255),
+                                      -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vatchar(255),' at line 3
+ MySQL  localhost:3306 ssl  eva_2  SQL >
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table orders (id int auto_increment key , c_id int, orderdate date , shipdate date, paiddate date, status varchar(50));
+Query OK, 0 rows affected (0.1258 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table parts(
+                                      -> ID int auto_increment key,
+                                      -> description varchar(255),
+                                      -> unitprice int,
+                                      -> onhand varchar(50),
+                                      -> reorder varchar(50),
+                                      -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table parts( ID int auto_increment key, description varchar(255), unitprice int, onhand varchar(50), reorder varchar(50);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > create table parts( ID int auto_increment key, description varchar(255), unitprice int, onhand varchar(50), reorder varchar(50));
+Query OK, 0 rows affected (0.1266 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc customer;
+ERROR: 1146 (42S02): Table 'eva_2.customer' doesn't exist
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc customers;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| id           | int         | NO   | PRI | NULL    | auto_increment |
+| last_name    | varchar(50) | YES  |     | NULL    |                |
+| firs_tname   | varchar(50) | YES  |     | NULL    |                |
+| company_name | varchar(50) | YES  |     | NULL    |                |
+| street1      | varchar(30) | YES  |     | NULL    |                |
+| street2      | varchar(30) | YES  |     | NULL    |                |
+| city         | varchar(40) | YES  |     | NULL    |                |
+| state        | varchar(40) | YES  |     | NULL    |                |
+| zipcode      | varchar(30) | YES  |     | NULL    |                |
+| phone        | int         | YES  |     | NULL    |                |
+| fax          | varchar(40) | YES  |     | NULL    |                |
+| email        | varchar(30) | YES  |     | NULL    |                |
+| S_ID         | int         | YES  | MUL | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc items;
++----------+------+------+-----+---------+----------------+
+| Field    | Type | Null | Key | Default | Extra          |
++----------+------+------+-----+---------+----------------+
+| O_ID     | int  | YES  | MUL | NULL    |                |
+| ID       | int  | NO   | PRI | NULL    | auto_increment |
+| P_ID     | int  | YES  | MUL | NULL    |                |
+| quantity | int  | YES  |     | NULL    |                |
++----------+------+------+-----+---------+----------------+
+4 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc order;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order' at line 1
+ MySQL  localhost:3306 ssl  eva_2  SQL > desc orders;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int         | NO   | PRI | NULL    | auto_increment |
+| c_id      | int         | YES  | MUL | NULL    |                |
+| orderdate | date        | YES  |     | NULL    |                |
+| shipdate  | date        | YES  |     | NULL    |                |
+| paiddate  | date        | YES  |     | NULL    |                |
+| status    | varchar(50) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL >
