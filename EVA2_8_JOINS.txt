@@ -1,4 +1,3 @@
-
 Microsoft Windows [Versión 10.0.19045.2728]
 (c) Microsoft Corporation. Todos los derechos reservados.
 
@@ -17,10 +16,145 @@ Creating a Classic session to 'root@localhost'
 Please provide the password for 'root@localhost': ****
 Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
 Fetching global names for auto-completion... Press ^C to stop.
-Your MySQL connection id is 9
+Your MySQL connection id is 8
 Server version: 8.0.32 MySQL Community Server - GPL
 No default schema selected; type \use <schema> to set one.
- MySQL  localhost:3306 ssl  SQL > show databases;
+ MySQL  localhost:3306 ssl  SQL > use company;
+Default schema set to `company`.
+Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  company  SQL > desc employee;desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmployeeId | int         | NO   | PRI | NULL    |       |
+| FullName   | varchar(50) | NO   |     | NULL    |       |
+| Technology | varchar(50) | NO   |     | NULL    |       |
+| Salary     | float       | NO   |     | NULL    |       |
+| Gender     | varchar(50) | NO   |     | NULL    |       |
+| Age        | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.0020 sec)
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| EmployeeId | int         | NO   | PRI | NULL    |       |
+| FullName   | varchar(50) | NO   |     | NULL    |       |
+| Technology | varchar(50) | NO   |     | NULL    |       |
+| Salary     | float       | NO   |     | NULL    |       |
+| Gender     | varchar(50) | NO   |     | NULL    |       |
+| Age        | int         | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  company  SQL > desc projects;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| ProjectId   | int          | NO   | PRI | NULL    | auto_increment |
+| ProjectName | varchar(200) | NO   |     | NULL    |                |
+| EmployeeId  | int          | YES  | MUL | NULL    |                |
+| StartDate   | datetime     | YES  |     | NULL    |                |
+| EndDate     | datetime     | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.0020 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select a.projectname, b.fullname from projects a inner join employee b on a.employeeid = b.employeeid;
++--------------------------------------------+-------------------+
+| projectname                                | fullname          |
++--------------------------------------------+-------------------+
+| Develop Ecommerse Website from scratch     | James Brown       |
+| WordPress Website for our company          | Mary Smith        |
+| Manage our Company Servers                 | Priyanla Dewangan |
+| Hosting account is not working             | Pranaya Kumar     |
+| MySQL database from my desktop application | Hina Sharma       |
+| Android Application development            | Mike Walker       |
+| Hosting account is not working             | John Doe          |
+| MySQL database from my desktop application | Sambit Mohanty    |
+| Develop Ecommerse Website from scratch     | James Brown       |
+| WordPress Website for our company          | Mary Smith        |
+| Manage our Company Servers                 | Priyanla Dewangan |
+| Hosting account is not working             | Pranaya Kumar     |
+| MySQL database from my desktop application | Hina Sharma       |
+| Android Application development            | Mike Walker       |
+| Hosting account is not working             | John Doe          |
+| MySQL database from my desktop application | Sambit Mohanty    |
++--------------------------------------------+-------------------+
+16 rows in set (0.0415 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select a.projectname, b.fullname from projects a left join employee b on a.employeeid = b.employeeid where b.fullname is not null;
++--------------------------------------------+-------------------+
+| projectname                                | fullname          |
++--------------------------------------------+-------------------+
+| Hosting account is not working             | John Doe          |
+| Hosting account is not working             | John Doe          |
+| WordPress Website for our company          | Mary Smith        |
+| WordPress Website for our company          | Mary Smith        |
+| Develop Ecommerse Website from scratch     | James Brown       |
+| Develop Ecommerse Website from scratch     | James Brown       |
+| Android Application development            | Mike Walker       |
+| Android Application development            | Mike Walker       |
+| Manage our Company Servers                 | Priyanla Dewangan |
+| Manage our Company Servers                 | Priyanla Dewangan |
+| MySQL database from my desktop application | Sambit Mohanty    |
+| MySQL database from my desktop application | Sambit Mohanty    |
+| Hosting account is not working             | Pranaya Kumar     |
+| Hosting account is not working             | Pranaya Kumar     |
+| MySQL database from my desktop application | Hina Sharma       |
+| MySQL database from my desktop application | Hina Sharma       |
++--------------------------------------------+-------------------+
+16 rows in set (0.0518 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select a.projectname, b.fullname from projects a left join employee b on a.employeeid = b.employeeid where b.fullname is null;
++------------------------------------------------------+----------+
+| projectname                                          | fullname |
++------------------------------------------------------+----------+
+| Develop new WordPress plugin for my business website | NULL     |
+| Migrate web application and database to new server   | NULL     |
+| Develop new WordPress plugin for my business website | NULL     |
+| Develop new WordPress plugin for my business website | NULL     |
+| Migrate web application and database to new server   | NULL     |
+| Develop new WordPress plugin for my business website | NULL     |
++------------------------------------------------------+----------+
+6 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.0815 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select a.projectname, b.fullname from projects a right join employee b on a.employeeid = b.employeeid;
++--------------------------------------------+-------------------+
+| projectname                                | fullname          |
++--------------------------------------------+-------------------+
+| Hosting account is not working             | John Doe          |
+| Hosting account is not working             | John Doe          |
+| WordPress Website for our company          | Mary Smith        |
+| WordPress Website for our company          | Mary Smith        |
+| Develop Ecommerse Website from scratch     | James Brown       |
+| Develop Ecommerse Website from scratch     | James Brown       |
+| Android Application development            | Mike Walker       |
+| Android Application development            | Mike Walker       |
+| NULL                                       | Linda Jones       |
+| NULL                                       | Anurag Mohanty    |
+| Manage our Company Servers                 | Priyanla Dewangan |
+| Manage our Company Servers                 | Priyanla Dewangan |
+| MySQL database from my desktop application | Sambit Mohanty    |
+| MySQL database from my desktop application | Sambit Mohanty    |
+| Hosting account is not working             | Pranaya Kumar     |
+| Hosting account is not working             | Pranaya Kumar     |
+| MySQL database from my desktop application | Hina Sharma       |
+| MySQL database from my desktop application | Hina Sharma       |
++--------------------------------------------+-------------------+
+18 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  company  SQL > select a.projectname, b.fullname from projects a right join employee b on a.employeeid = b.employeeid where a.projectname is null;
++-------------+----------------+
+| projectname | fullname       |
++-------------+----------------+
+| NULL        | Linda Jones    |
+| NULL        | Anurag Mohanty |
++-------------+----------------+
+2 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  company  SQL > \use comp2;
+Default schema set to `comp2`.
+Fetching global names, object names from `comp2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  comp2  SQL > show databases;
 +--------------------+
 | Database           |
 +--------------------+
@@ -37,23 +171,65 @@ No default schema selected; type \use <schema> to set one.
 | sys                |
 | world              |
 +--------------------+
-12 rows in set (0.0007 sec)
- MySQL  localhost:3306 ssl  SQL > use company;
-Default schema set to `company`.
-Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
- MySQL  localhost:3306 ssl  company  SQL > \use company;
-Default schema set to `company`.
-Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
- MySQL  localhost:3306 ssl  company  SQL > \use company;
-Default schema set to `company`.
-Fetching global names, object names from `company` for auto-completion... Press ^C to stop.
- MySQL  localhost:3306 ssl  company  SQL > select a.first_name, a.last_name, b.department_name from employees a inner join departments b on a.department_id = b.department_id;select a.first_name, a.last_name, b.department_name from employees a inner join departments b on a.department_id = b.department_id;
-ERROR: 1146 (42S02): Table 'company.employees' doesn't exist
-ERROR: 1146 (42S02): Table 'company.employees' doesn't exist
- MySQL  localhost:3306 ssl  company  SQL > \use comp2
-Default schema set to `comp2`.
-Fetching global names, object names from `comp2` for auto-completion... Press ^C to stop.
- MySQL  localhost:3306 ssl  comp2  SQL >
+12 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > show tables;
++-----------------+
+| Tables_in_comp2 |
++-----------------+
+| countries       |
+| departments     |
+| employees       |
+| job_history     |
+| jobs            |
+| locations       |
+| regions         |
++-----------------+
+7 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc employees;desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.0021 sec)
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > > select a.first_name, a.last_name, b.department_name from employees a inner join departments b on a.department_id = b.department_id;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> select a.first_name, a.last_name, b.department_name from employees a inner joi' at line 1
  MySQL  localhost:3306 ssl  comp2  SQL > select a.first_name, a.last_name, b.department_name from employees a inner join departments b on a.department_id = b.department_id;
 +-------------+-------------+------------------+
 | first_name  | last_name   | department_name  |
@@ -165,5 +341,326 @@ Fetching global names, object names from `comp2` for auto-completion... Press ^C
 | Shelley     | Higgins     | Accounting       |
 | William     | Gietz       | Accounting       |
 +-------------+-------------+------------------+
-106 rows in set (0.0010 sec)
- MySQL  localhost:3306 ssl  comp2  SQL > Se me cerró y perdi todo lo del principio :'(
+106 rows in set (0.0577 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.first_name, a.last_name, b.department_name from employees a left join departments b on a.department_id = b.department_id;
++-------------+-------------+------------------+
+| first_name  | last_name   | department_name  |
++-------------+-------------+------------------+
+| Steven      | King        | Executive        |
+| Neena       | Kochhar     | Executive        |
+| Lex         | De Haan     | Executive        |
+| Alexander   | Hunold      | IT               |
+| Bruce       | Ernst       | IT               |
+| David       | Austin      | IT               |
+| Valli       | Pataballa   | IT               |
+| Diana       | Lorentz     | IT               |
+| Nancy       | Greenberg   | Finance          |
+| Daniel      | Faviet      | Finance          |
+| John        | Chen        | Finance          |
+| Ismael      | Sciarra     | Finance          |
+| Jose Manuel | Urman       | Finance          |
+| Luis        | Popp        | Finance          |
+| Den         | Raphaely    | Purchasing       |
+| Alexander   | Khoo        | Purchasing       |
+| Shelli      | Baida       | Purchasing       |
+| Sigal       | Tobias      | Purchasing       |
+| Guy         | Himuro      | Purchasing       |
+| Karen       | Colmenares  | Purchasing       |
+| Matthew     | Weiss       | Shipping         |
+| Adam        | Fripp       | Shipping         |
+| Payam       | Kaufling    | Shipping         |
+| Shanta      | Vollman     | Shipping         |
+| Kevin       | Mourgos     | Shipping         |
+| Julia       | Nayer       | Shipping         |
+| Irene       | Mikkilineni | Shipping         |
+| James       | Landry      | Shipping         |
+| Steven      | Markle      | Shipping         |
+| Laura       | Bissot      | Shipping         |
+| Mozhe       | Atkinson    | Shipping         |
+| James       | Marlow      | Shipping         |
+| TJ          | Olson       | Shipping         |
+| Jason       | Mallin      | Shipping         |
+| Michael     | Rogers      | Shipping         |
+| Ki          | Gee         | Shipping         |
+| Hazel       | Philtanker  | Shipping         |
+| Renske      | Ladwig      | Shipping         |
+| Stephen     | Stiles      | Shipping         |
+| John        | Seo         | Shipping         |
+| Joshua      | Patel       | Shipping         |
+| Trenna      | Rajs        | Shipping         |
+| Curtis      | Davies      | Shipping         |
+| Randall     | Matos       | Shipping         |
+| Peter       | Vargas      | Shipping         |
+| John        | Russell     | Sales            |
+| Karen       | Partners    | Sales            |
+| Alberto     | Errazuriz   | Sales            |
+| Gerald      | Cambrault   | Sales            |
+| Eleni       | Zlotkey     | Sales            |
+| Peter       | Tucker      | Sales            |
+| David       | Bernstein   | Sales            |
+| Peter       | Hall        | Sales            |
+| Christopher | Olsen       | Sales            |
+| Nanette     | Cambrault   | Sales            |
+| Oliver      | Tuvault     | Sales            |
+| Janette     | King        | Sales            |
+| Patrick     | Sully       | Sales            |
+| Allan       | McEwen      | Sales            |
+| Lindsey     | Smith       | Sales            |
+| Louise      | Doran       | Sales            |
+| Sarath      | Sewall      | Sales            |
+| Clara       | Vishney     | Sales            |
+| Danielle    | Greene      | Sales            |
+| Mattea      | Marvins     | Sales            |
+| David       | Lee         | Sales            |
+| Sundar      | Ande        | Sales            |
+| Amit        | Banda       | Sales            |
+| Lisa        | Ozer        | Sales            |
+| Harrison    | Bloom       | Sales            |
+| Tayler      | Fox         | Sales            |
+| William     | Smith       | Sales            |
+| Elizabeth   | Bates       | Sales            |
+| Sundita     | Kumar       | Sales            |
+| Ellen       | Abel        | Sales            |
+| Alyssa      | Hutton      | Sales            |
+| Jonathon    | Taylor      | Sales            |
+| Jack        | Livingston  | Sales            |
+| Kimberely   | Grant       | NULL             |
+| Charles     | Johnson     | Sales            |
+| Winston     | Taylor      | Shipping         |
+| Jean        | Fleaur      | Shipping         |
+| Martha      | Sullivan    | Shipping         |
+| Girard      | Geoni       | Shipping         |
+| Nandita     | Sarchand    | Shipping         |
+| Alexis      | Bull        | Shipping         |
+| Julia       | Dellinger   | Shipping         |
+| Anthony     | Cabrio      | Shipping         |
+| Kelly       | Chung       | Shipping         |
+| Jennifer    | Dilly       | Shipping         |
+| Timothy     | Gates       | Shipping         |
+| Randall     | Perkins     | Shipping         |
+| Sarah       | Bell        | Shipping         |
+| Britney     | Everett     | Shipping         |
+| Samuel      | McCain      | Shipping         |
+| Vance       | Jones       | Shipping         |
+| Alana       | Walsh       | Shipping         |
+| Kevin       | Feeney      | Shipping         |
+| Donald      | OConnell    | Shipping         |
+| Douglas     | Grant       | Shipping         |
+| Jennifer    | Whalen      | Administration   |
+| Michael     | Hartstein   | Marketing        |
+| Pat         | Fay         | Marketing        |
+| Susan       | Mavris      | Human Resources  |
+| Hermann     | Baer        | Public Relations |
+| Shelley     | Higgins     | Accounting       |
+| William     | Gietz       | Accounting       |
++-------------+-------------+------------------+
+107 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.first_name, a.last_name, b.department_name from employees a left join departments b on a.department_id = b.department_id order by b.department_name, a.last_name;
++-------------+-------------+------------------+
+| first_name  | last_name   | department_name  |
++-------------+-------------+------------------+
+| Kimberely   | Grant       | NULL             |
+| William     | Gietz       | Accounting       |
+| Shelley     | Higgins     | Accounting       |
+| Jennifer    | Whalen      | Administration   |
+| Lex         | De Haan     | Executive        |
+| Steven      | King        | Executive        |
+| Neena       | Kochhar     | Executive        |
+| John        | Chen        | Finance          |
+| Daniel      | Faviet      | Finance          |
+| Nancy       | Greenberg   | Finance          |
+| Luis        | Popp        | Finance          |
+| Ismael      | Sciarra     | Finance          |
+| Jose Manuel | Urman       | Finance          |
+| Susan       | Mavris      | Human Resources  |
+| David       | Austin      | IT               |
+| Bruce       | Ernst       | IT               |
+| Alexander   | Hunold      | IT               |
+| Diana       | Lorentz     | IT               |
+| Valli       | Pataballa   | IT               |
+| Pat         | Fay         | Marketing        |
+| Michael     | Hartstein   | Marketing        |
+| Hermann     | Baer        | Public Relations |
+| Shelli      | Baida       | Purchasing       |
+| Karen       | Colmenares  | Purchasing       |
+| Guy         | Himuro      | Purchasing       |
+| Alexander   | Khoo        | Purchasing       |
+| Den         | Raphaely    | Purchasing       |
+| Sigal       | Tobias      | Purchasing       |
+| Ellen       | Abel        | Sales            |
+| Sundar      | Ande        | Sales            |
+| Amit        | Banda       | Sales            |
+| Elizabeth   | Bates       | Sales            |
+| David       | Bernstein   | Sales            |
+| Harrison    | Bloom       | Sales            |
+| Nanette     | Cambrault   | Sales            |
+| Gerald      | Cambrault   | Sales            |
+| Louise      | Doran       | Sales            |
+| Alberto     | Errazuriz   | Sales            |
+| Tayler      | Fox         | Sales            |
+| Danielle    | Greene      | Sales            |
+| Peter       | Hall        | Sales            |
+| Alyssa      | Hutton      | Sales            |
+| Charles     | Johnson     | Sales            |
+| Janette     | King        | Sales            |
+| Sundita     | Kumar       | Sales            |
+| David       | Lee         | Sales            |
+| Jack        | Livingston  | Sales            |
+| Mattea      | Marvins     | Sales            |
+| Allan       | McEwen      | Sales            |
+| Christopher | Olsen       | Sales            |
+| Lisa        | Ozer        | Sales            |
+| Karen       | Partners    | Sales            |
+| John        | Russell     | Sales            |
+| Sarath      | Sewall      | Sales            |
+| Lindsey     | Smith       | Sales            |
+| William     | Smith       | Sales            |
+| Patrick     | Sully       | Sales            |
+| Jonathon    | Taylor      | Sales            |
+| Peter       | Tucker      | Sales            |
+| Oliver      | Tuvault     | Sales            |
+| Clara       | Vishney     | Sales            |
+| Eleni       | Zlotkey     | Sales            |
+| Mozhe       | Atkinson    | Shipping         |
+| Sarah       | Bell        | Shipping         |
+| Laura       | Bissot      | Shipping         |
+| Alexis      | Bull        | Shipping         |
+| Anthony     | Cabrio      | Shipping         |
+| Kelly       | Chung       | Shipping         |
+| Curtis      | Davies      | Shipping         |
+| Julia       | Dellinger   | Shipping         |
+| Jennifer    | Dilly       | Shipping         |
+| Britney     | Everett     | Shipping         |
+| Kevin       | Feeney      | Shipping         |
+| Jean        | Fleaur      | Shipping         |
+| Adam        | Fripp       | Shipping         |
+| Timothy     | Gates       | Shipping         |
+| Ki          | Gee         | Shipping         |
+| Girard      | Geoni       | Shipping         |
+| Douglas     | Grant       | Shipping         |
+| Vance       | Jones       | Shipping         |
+| Payam       | Kaufling    | Shipping         |
+| Renske      | Ladwig      | Shipping         |
+| James       | Landry      | Shipping         |
+| Jason       | Mallin      | Shipping         |
+| Steven      | Markle      | Shipping         |
+| James       | Marlow      | Shipping         |
+| Randall     | Matos       | Shipping         |
+| Samuel      | McCain      | Shipping         |
+| Irene       | Mikkilineni | Shipping         |
+| Kevin       | Mourgos     | Shipping         |
+| Julia       | Nayer       | Shipping         |
+| Donald      | OConnell    | Shipping         |
+| TJ          | Olson       | Shipping         |
+| Joshua      | Patel       | Shipping         |
+| Randall     | Perkins     | Shipping         |
+| Hazel       | Philtanker  | Shipping         |
+| Trenna      | Rajs        | Shipping         |
+| Michael     | Rogers      | Shipping         |
+| Nandita     | Sarchand    | Shipping         |
+| John        | Seo         | Shipping         |
+| Stephen     | Stiles      | Shipping         |
+| Martha      | Sullivan    | Shipping         |
+| Winston     | Taylor      | Shipping         |
+| Peter       | Vargas      | Shipping         |
+| Shanta      | Vollman     | Shipping         |
+| Alana       | Walsh       | Shipping         |
+| Matthew     | Weiss       | Shipping         |
++-------------+-------------+------------------+
+107 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | NO   | PRI | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | decimal(4,0) | NO   | PRI | 0       |       |
+| STREET_ADDRESS | varchar(40)  | YES  |     | NULL    |       |
+| POSTAL_CODE    | varchar(12)  | YES  |     | NULL    |       |
+| CITY           | varchar(30)  | NO   | MUL | NULL    |       |
+| STATE_PROVINCE | varchar(25)  | YES  | MUL | NULL    |       |
+| COUNTRY_ID     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select * from locations;
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+| LOCATION_ID | STREET_ADDRESS            | POSTAL_CODE  | CITY                | STATE_PROVINCE    | COUNTRY_ID |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+|        1000 | 1297 Via Cola di Rie      | 989          | Roma                |                   | IT         |
+|        1100 | 93091 Calle della Testa   | 10934        | Venice              |                   | IT         |
+|        1200 | 2017 Shinjuku-ku          | 1689         | Tokyo               | Tokyo Prefecture  | JP         |
+|        1300 | 9450 Kamiya-cho           | 6823         | Hiroshima           |                   | JP         |
+|        1400 | 2014 Jabberwocky Rd       | 26192        | Southlake           | Texas             | US         |
+|        1500 | 2011 Interiors Blvd       | 99236        | South San Francisco | California        | US         |
+|        1600 | 2007 Zagora St            | 50090        | South Brunswick     | New Jersey        | US         |
+|        1700 | 2004 Charade Rd           | 98199        | Seattle             | Washington        | US         |
+|        1800 | 147 Spadina Ave           | M5V 2L7      | Toronto             | Ontario           | CA         |
+|        1900 | 6092 Boxwood St           | YSW 9T2      | Whitehorse          | Yukon             | CA         |
+|        2000 | 40-5-12 Laogianggen       | 190518       | Beijing             |                   | CN         |
+|        2100 | 1298 Vileparle (E)        | 490231       | Bombay              | Maharashtra       | IN         |
+|        2200 | 12-98 Victoria Street     | 2901         | Sydney              | New South Wales   | AU         |
+|        2300 | 198 Clementi North        | 540198       | Singapore           |                   | SG         |
+|        2400 | 8204 Arthur St            |              | London              |                   | UK         |
+|        2500 | "Magdalen Centre          |  The Oxford  | OX9 9ZB             | Oxford            | Ox         |
+|        2600 | 9702 Chester Road         | 9629850293   | Stretford           | Manchester        | UK         |
+|        2700 | Schwanthalerstr. 7031     | 80925        | Munich              | Bavaria           | DE         |
+|        2800 | Rua Frei Caneca 1360      | 01307-002    | Sao Paulo           | Sao Paulo         | BR         |
+|        2900 | 20 Rue des Corps-Saints   | 1730         | Geneva              | Geneve            | CH         |
+|        3000 | Murtenstrasse 921         | 3095         | Bern                | BE                | CH         |
+|        3100 | Pieter Breughelstraat 837 | 3029SK       | Utrecht             | Utrecht           | NL         |
+|        3200 | Mariano Escobedo 9991     | 11932        | Mexico City         | "Distrito Federal | "          |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+23 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.department_name, b.street_address, b.city, b.state_province, c.country_name from departments a inner join locations b on a.location_id = b.location_id inner join countries c on b.country_id = c.country_id;
++----------------------+-----------------------+---------------------+----------------+--------------------------+
+| department_name      | street_address        | city                | state_province | country_name             |
++----------------------+-----------------------+---------------------+----------------+--------------------------+
+| Administration       | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Marketing            | 147 Spadina Ave       | Toronto             | Ontario        | Canada                   |
+| Purchasing           | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Human Resources      | 8204 Arthur St        | London              |                | United Kingdom           |
+| Shipping             | 2011 Interiors Blvd   | South San Francisco | California     | United States of America |
+| IT                   | 2014 Jabberwocky Rd   | Southlake           | Texas          | United States of America |
+| Public Relations     | Schwanthalerstr. 7031 | Munich              | Bavaria        | Germany                  |
+| Executive            | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Finance              | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Accounting           | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Treasury             | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Corporate Tax        | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Control And Credit   | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Shareholder Services | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Benefits             | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Manufacturing        | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Construction         | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Contracting          | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Operations           | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| IT Support           | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| NOC                  | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| IT Helpdesk          | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Government Sales     | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Retail Sales         | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Recruiting           | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
+| Payroll              | 2004 Charade Rd       | Seattle             | Washington     | United States of America |
++----------------------+-----------------------+---------------------+----------------+--------------------------+
+26 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL >
+Bye!
+
+C:\Users\angel>
