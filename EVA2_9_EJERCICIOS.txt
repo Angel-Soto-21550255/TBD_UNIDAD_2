@@ -1,0 +1,559 @@
+Microsoft Windows [Versión 10.0.19045.2728]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\angel>"C:\Users\angel\Desktop\MySQL Shell.lnk"
+MySQL Shell 8.0.32
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.32 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > \use eva_2
+Default schema set to `eva_2`.
+Fetching global names, object names from `eva_2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  eva_2  SQL > show tables;
++-----------------+
+| Tables_in_eva_2 |
++-----------------+
+| contacts        |
+| customers       |
+| detalle         |
+| detallefactura  |
+| factura         |
+| items           |
+| maestro         |
+| orders          |
+| parts           |
+| phones          |
+| salesreps       |
+| tablaa          |
+| tablab          |
++-----------------+
+13 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  eva_2  SQL > \use comp2
+Default schema set to `comp2`.
+Fetching global names, object names from `comp2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  comp2  SQL > show tables;
++-----------------+
+| Tables_in_comp2 |
++-----------------+
+| countries       |
+| departments     |
+| employees       |
+| job_history     |
+| jobs            |
+| locations       |
+| regions         |
++-----------------+
+7 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title;
+ERROR: 1109 (42S02): Unknown table 'a' in field list
+ MySQL  localhost:3306 ssl  comp2  SQL > desc employee;
+ERROR: 1146 (42S02): Table 'comp2.employee' doesn't exist
+ MySQL  localhost:3306 ssl  comp2  SQL > desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| JOB_ID     | varchar(10)  | NO   | PRI |         |       |
+| JOB_TITLE  | varchar(35)  | NO   |     | NULL    |       |
+| MIN_SALARY | decimal(6,0) | YES  |     | NULL    |       |
+| MAX_SALARY | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title from employees a inner join job b on a.amployees_id = b.job_id ;
+ERROR: 1146 (42S02): Table 'comp2.job' doesn't exist
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title from employees a inner join jobs b on a.amployees_id = b.job_id ;
+ERROR: 1054 (42S22): Unknown column 'a.amployees_id' in 'on clause'
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title from employees a inner join jobs b on a.amployee_id = b.job_id ;
+ERROR: 1054 (42S22): Unknown column 'a.amployee_id' in 'on clause'
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title from employees a inner join jobs b on a.employee_id = b.job_id ;
+Empty set, 19 warnings (0.1120 sec)
+Warning (code 1366): Incorrect decimal value: 'AC_ACCOUNT' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AC_MGR' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_ASST' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_PRES' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_VP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'FI_ACCOUNT' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'FI_MGR' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'HR_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'IT_PROG' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'MK_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'MK_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PR_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PU_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PU_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SA_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SA_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SH_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'ST_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'ST_MAN' for column 'EMPLOYEE_ID' at row 1
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.last_name, a.first_name, b.job_title from employees a inner join jobs b on a.employee_id = b.job_id ;
+Empty set, 19 warnings (0.0008 sec)
+Warning (code 1366): Incorrect decimal value: 'AC_ACCOUNT' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AC_MGR' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_ASST' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_PRES' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_VP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'FI_ACCOUNT' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'FI_MGR' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'HR_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'IT_PROG' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'MK_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'MK_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PR_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PU_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PU_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SA_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SA_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SH_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'ST_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'ST_MAN' for column 'EMPLOYEE_ID' at row 1
+ MySQL  localhost:3306 ssl  comp2  SQL > desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| JOB_ID     | varchar(10)  | NO   | PRI |         |       |
+| JOB_TITLE  | varchar(35)  | NO   |     | NULL    |       |
+| MIN_SALARY | decimal(6,0) | YES  |     | NULL    |       |
+| MAX_SALARY | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.last_name, a.first_name, b.min_salary, b.max_salary from employees a inner join jobs b on a.employee_id = b.job_id ;
+Empty set, 19 warnings (0.0008 sec)
+Warning (code 1366): Incorrect decimal value: 'AC_ACCOUNT' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AC_MGR' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_ASST' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_PRES' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'AD_VP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'FI_ACCOUNT' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'FI_MGR' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'HR_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'IT_PROG' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'MK_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'MK_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PR_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PU_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'PU_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SA_MAN' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SA_REP' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'SH_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'ST_CLERK' for column 'EMPLOYEE_ID' at row 1
+Warning (code 1366): Incorrect decimal value: 'ST_MAN' for column 'EMPLOYEE_ID' at row 1
+ MySQL  localhost:3306 ssl  comp2  SQL > desc departament;
+ERROR: 1146 (42S02): Table 'comp2.departament' doesn't exist
+ MySQL  localhost:3306 ssl  comp2  SQL > show tables;
++-----------------+
+| Tables_in_comp2 |
++-----------------+
+| countries       |
+| departments     |
+| employees       |
+| job_history     |
+| jobs            |
+| locations       |
+| regions         |
++-----------------+
+7 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title from employees a inner join job b on a.job_id = b.job_id ;
+ERROR: 1146 (42S02): Table 'comp2.job' doesn't exist
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.job_title from employees a inner join jobs b on a.job_id = b.job_id ;
++-------------+-------------+-------------+---------------------------------+
+| employee_id | last_name   | first_name  | job_title                       |
++-------------+-------------+-------------+---------------------------------+
+|         206 | Gietz       | William     | Public Accountant               |
+|         205 | Higgins     | Shelley     | Accounting Manager              |
+|         200 | Whalen      | Jennifer    | Administration Assistant        |
+|         100 | King        | Steven      | President                       |
+|         101 | Kochhar     | Neena       | Administration Vice President   |
+|         102 | De Haan     | Lex         | Administration Vice President   |
+|         109 | Faviet      | Daniel      | Accountant                      |
+|         110 | Chen        | John        | Accountant                      |
+|         111 | Sciarra     | Ismael      | Accountant                      |
+|         112 | Urman       | Jose Manuel | Accountant                      |
+|         113 | Popp        | Luis        | Accountant                      |
+|         108 | Greenberg   | Nancy       | Finance Manager                 |
+|         203 | Mavris      | Susan       | Human Resources Representative  |
+|         103 | Hunold      | Alexander   | Programmer                      |
+|         104 | Ernst       | Bruce       | Programmer                      |
+|         105 | Austin      | David       | Programmer                      |
+|         106 | Pataballa   | Valli       | Programmer                      |
+|         107 | Lorentz     | Diana       | Programmer                      |
+|         201 | Hartstein   | Michael     | Marketing Manager               |
+|         202 | Fay         | Pat         | Marketing Representative        |
+|         204 | Baer        | Hermann     | Public Relations Representative |
+|         115 | Khoo        | Alexander   | Purchasing Clerk                |
+|         116 | Baida       | Shelli      | Purchasing Clerk                |
+|         117 | Tobias      | Sigal       | Purchasing Clerk                |
+|         118 | Himuro      | Guy         | Purchasing Clerk                |
+|         119 | Colmenares  | Karen       | Purchasing Clerk                |
+|         114 | Raphaely    | Den         | Purchasing Manager              |
+|         145 | Russell     | John        | Sales Manager                   |
+|         146 | Partners    | Karen       | Sales Manager                   |
+|         147 | Errazuriz   | Alberto     | Sales Manager                   |
+|         148 | Cambrault   | Gerald      | Sales Manager                   |
+|         149 | Zlotkey     | Eleni       | Sales Manager                   |
+|         150 | Tucker      | Peter       | Sales Representative            |
+|         151 | Bernstein   | David       | Sales Representative            |
+|         152 | Hall        | Peter       | Sales Representative            |
+|         153 | Olsen       | Christopher | Sales Representative            |
+|         154 | Cambrault   | Nanette     | Sales Representative            |
+|         155 | Tuvault     | Oliver      | Sales Representative            |
+|         156 | King        | Janette     | Sales Representative            |
+|         157 | Sully       | Patrick     | Sales Representative            |
+|         158 | McEwen      | Allan       | Sales Representative            |
+|         159 | Smith       | Lindsey     | Sales Representative            |
+|         160 | Doran       | Louise      | Sales Representative            |
+|         161 | Sewall      | Sarath      | Sales Representative            |
+|         162 | Vishney     | Clara       | Sales Representative            |
+|         163 | Greene      | Danielle    | Sales Representative            |
+|         164 | Marvins     | Mattea      | Sales Representative            |
+|         165 | Lee         | David       | Sales Representative            |
+|         166 | Ande        | Sundar      | Sales Representative            |
+|         167 | Banda       | Amit        | Sales Representative            |
+|         168 | Ozer        | Lisa        | Sales Representative            |
+|         169 | Bloom       | Harrison    | Sales Representative            |
+|         170 | Fox         | Tayler      | Sales Representative            |
+|         171 | Smith       | William     | Sales Representative            |
+|         172 | Bates       | Elizabeth   | Sales Representative            |
+|         173 | Kumar       | Sundita     | Sales Representative            |
+|         174 | Abel        | Ellen       | Sales Representative            |
+|         175 | Hutton      | Alyssa      | Sales Representative            |
+|         176 | Taylor      | Jonathon    | Sales Representative            |
+|         177 | Livingston  | Jack        | Sales Representative            |
+|         178 | Grant       | Kimberely   | Sales Representative            |
+|         179 | Johnson     | Charles     | Sales Representative            |
+|         180 | Taylor      | Winston     | Shipping Clerk                  |
+|         181 | Fleaur      | Jean        | Shipping Clerk                  |
+|         182 | Sullivan    | Martha      | Shipping Clerk                  |
+|         183 | Geoni       | Girard      | Shipping Clerk                  |
+|         184 | Sarchand    | Nandita     | Shipping Clerk                  |
+|         185 | Bull        | Alexis      | Shipping Clerk                  |
+|         186 | Dellinger   | Julia       | Shipping Clerk                  |
+|         187 | Cabrio      | Anthony     | Shipping Clerk                  |
+|         188 | Chung       | Kelly       | Shipping Clerk                  |
+|         189 | Dilly       | Jennifer    | Shipping Clerk                  |
+|         190 | Gates       | Timothy     | Shipping Clerk                  |
+|         191 | Perkins     | Randall     | Shipping Clerk                  |
+|         192 | Bell        | Sarah       | Shipping Clerk                  |
+|         193 | Everett     | Britney     | Shipping Clerk                  |
+|         194 | McCain      | Samuel      | Shipping Clerk                  |
+|         195 | Jones       | Vance       | Shipping Clerk                  |
+|         196 | Walsh       | Alana       | Shipping Clerk                  |
+|         197 | Feeney      | Kevin       | Shipping Clerk                  |
+|         198 | OConnell    | Donald      | Shipping Clerk                  |
+|         199 | Grant       | Douglas     | Shipping Clerk                  |
+|         125 | Nayer       | Julia       | Stock Clerk                     |
+|         126 | Mikkilineni | Irene       | Stock Clerk                     |
+|         127 | Landry      | James       | Stock Clerk                     |
+|         128 | Markle      | Steven      | Stock Clerk                     |
+|         129 | Bissot      | Laura       | Stock Clerk                     |
+|         130 | Atkinson    | Mozhe       | Stock Clerk                     |
+|         131 | Marlow      | James       | Stock Clerk                     |
+|         132 | Olson       | TJ          | Stock Clerk                     |
+|         133 | Mallin      | Jason       | Stock Clerk                     |
+|         134 | Rogers      | Michael     | Stock Clerk                     |
+|         135 | Gee         | Ki          | Stock Clerk                     |
+|         136 | Philtanker  | Hazel       | Stock Clerk                     |
+|         137 | Ladwig      | Renske      | Stock Clerk                     |
+|         138 | Stiles      | Stephen     | Stock Clerk                     |
+|         139 | Seo         | John        | Stock Clerk                     |
+|         140 | Patel       | Joshua      | Stock Clerk                     |
+|         141 | Rajs        | Trenna      | Stock Clerk                     |
+|         142 | Davies      | Curtis      | Stock Clerk                     |
+|         143 | Matos       | Randall     | Stock Clerk                     |
+|         144 | Vargas      | Peter       | Stock Clerk                     |
+|         120 | Weiss       | Matthew     | Stock Manager                   |
+|         121 | Fripp       | Adam        | Stock Manager                   |
+|         122 | Kaufling    | Payam       | Stock Manager                   |
+|         123 | Vollman     | Shanta      | Stock Manager                   |
+|         124 | Mourgos     | Kevin       | Stock Manager                   |
++-------------+-------------+-------------+---------------------------------+
+107 rows in set (0.0134 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc jobs;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| JOB_ID     | varchar(10)  | NO   | PRI |         |       |
+| JOB_TITLE  | varchar(35)  | NO   |     | NULL    |       |
+| MIN_SALARY | decimal(6,0) | YES  |     | NULL    |       |
+| MAX_SALARY | decimal(6,0) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.min_salary, b.max_salary from employees a inner join jobs b on a.job_id = b.job_id ;
++-------------+-------------+-------------+------------+------------+
+| employee_id | last_name   | first_name  | min_salary | max_salary |
++-------------+-------------+-------------+------------+------------+
+|         206 | Gietz       | William     |       4200 |       9000 |
+|         205 | Higgins     | Shelley     |       8200 |      16000 |
+|         200 | Whalen      | Jennifer    |       3000 |       6000 |
+|         100 | King        | Steven      |      20000 |      40000 |
+|         101 | Kochhar     | Neena       |      15000 |      30000 |
+|         102 | De Haan     | Lex         |      15000 |      30000 |
+|         109 | Faviet      | Daniel      |       4200 |       9000 |
+|         110 | Chen        | John        |       4200 |       9000 |
+|         111 | Sciarra     | Ismael      |       4200 |       9000 |
+|         112 | Urman       | Jose Manuel |       4200 |       9000 |
+|         113 | Popp        | Luis        |       4200 |       9000 |
+|         108 | Greenberg   | Nancy       |       8200 |      16000 |
+|         203 | Mavris      | Susan       |       4000 |       9000 |
+|         103 | Hunold      | Alexander   |       4000 |      10000 |
+|         104 | Ernst       | Bruce       |       4000 |      10000 |
+|         105 | Austin      | David       |       4000 |      10000 |
+|         106 | Pataballa   | Valli       |       4000 |      10000 |
+|         107 | Lorentz     | Diana       |       4000 |      10000 |
+|         201 | Hartstein   | Michael     |       9000 |      15000 |
+|         202 | Fay         | Pat         |       4000 |       9000 |
+|         204 | Baer        | Hermann     |       4500 |      10500 |
+|         115 | Khoo        | Alexander   |       2500 |       5500 |
+|         116 | Baida       | Shelli      |       2500 |       5500 |
+|         117 | Tobias      | Sigal       |       2500 |       5500 |
+|         118 | Himuro      | Guy         |       2500 |       5500 |
+|         119 | Colmenares  | Karen       |       2500 |       5500 |
+|         114 | Raphaely    | Den         |       8000 |      15000 |
+|         145 | Russell     | John        |      10000 |      20000 |
+|         146 | Partners    | Karen       |      10000 |      20000 |
+|         147 | Errazuriz   | Alberto     |      10000 |      20000 |
+|         148 | Cambrault   | Gerald      |      10000 |      20000 |
+|         149 | Zlotkey     | Eleni       |      10000 |      20000 |
+|         150 | Tucker      | Peter       |       6000 |      12000 |
+|         151 | Bernstein   | David       |       6000 |      12000 |
+|         152 | Hall        | Peter       |       6000 |      12000 |
+|         153 | Olsen       | Christopher |       6000 |      12000 |
+|         154 | Cambrault   | Nanette     |       6000 |      12000 |
+|         155 | Tuvault     | Oliver      |       6000 |      12000 |
+|         156 | King        | Janette     |       6000 |      12000 |
+|         157 | Sully       | Patrick     |       6000 |      12000 |
+|         158 | McEwen      | Allan       |       6000 |      12000 |
+|         159 | Smith       | Lindsey     |       6000 |      12000 |
+|         160 | Doran       | Louise      |       6000 |      12000 |
+|         161 | Sewall      | Sarath      |       6000 |      12000 |
+|         162 | Vishney     | Clara       |       6000 |      12000 |
+|         163 | Greene      | Danielle    |       6000 |      12000 |
+|         164 | Marvins     | Mattea      |       6000 |      12000 |
+|         165 | Lee         | David       |       6000 |      12000 |
+|         166 | Ande        | Sundar      |       6000 |      12000 |
+|         167 | Banda       | Amit        |       6000 |      12000 |
+|         168 | Ozer        | Lisa        |       6000 |      12000 |
+|         169 | Bloom       | Harrison    |       6000 |      12000 |
+|         170 | Fox         | Tayler      |       6000 |      12000 |
+|         171 | Smith       | William     |       6000 |      12000 |
+|         172 | Bates       | Elizabeth   |       6000 |      12000 |
+|         173 | Kumar       | Sundita     |       6000 |      12000 |
+|         174 | Abel        | Ellen       |       6000 |      12000 |
+|         175 | Hutton      | Alyssa      |       6000 |      12000 |
+|         176 | Taylor      | Jonathon    |       6000 |      12000 |
+|         177 | Livingston  | Jack        |       6000 |      12000 |
+|         178 | Grant       | Kimberely   |       6000 |      12000 |
+|         179 | Johnson     | Charles     |       6000 |      12000 |
+|         180 | Taylor      | Winston     |       2500 |       5500 |
+|         181 | Fleaur      | Jean        |       2500 |       5500 |
+|         182 | Sullivan    | Martha      |       2500 |       5500 |
+|         183 | Geoni       | Girard      |       2500 |       5500 |
+|         184 | Sarchand    | Nandita     |       2500 |       5500 |
+|         185 | Bull        | Alexis      |       2500 |       5500 |
+|         186 | Dellinger   | Julia       |       2500 |       5500 |
+|         187 | Cabrio      | Anthony     |       2500 |       5500 |
+|         188 | Chung       | Kelly       |       2500 |       5500 |
+|         189 | Dilly       | Jennifer    |       2500 |       5500 |
+|         190 | Gates       | Timothy     |       2500 |       5500 |
+|         191 | Perkins     | Randall     |       2500 |       5500 |
+|         192 | Bell        | Sarah       |       2500 |       5500 |
+|         193 | Everett     | Britney     |       2500 |       5500 |
+|         194 | McCain      | Samuel      |       2500 |       5500 |
+|         195 | Jones       | Vance       |       2500 |       5500 |
+|         196 | Walsh       | Alana       |       2500 |       5500 |
+|         197 | Feeney      | Kevin       |       2500 |       5500 |
+|         198 | OConnell    | Donald      |       2500 |       5500 |
+|         199 | Grant       | Douglas     |       2500 |       5500 |
+|         125 | Nayer       | Julia       |       2000 |       5000 |
+|         126 | Mikkilineni | Irene       |       2000 |       5000 |
+|         127 | Landry      | James       |       2000 |       5000 |
+|         128 | Markle      | Steven      |       2000 |       5000 |
+|         129 | Bissot      | Laura       |       2000 |       5000 |
+|         130 | Atkinson    | Mozhe       |       2000 |       5000 |
+|         131 | Marlow      | James       |       2000 |       5000 |
+|         132 | Olson       | TJ          |       2000 |       5000 |
+|         133 | Mallin      | Jason       |       2000 |       5000 |
+|         134 | Rogers      | Michael     |       2000 |       5000 |
+|         135 | Gee         | Ki          |       2000 |       5000 |
+|         136 | Philtanker  | Hazel       |       2000 |       5000 |
+|         137 | Ladwig      | Renske      |       2000 |       5000 |
+|         138 | Stiles      | Stephen     |       2000 |       5000 |
+|         139 | Seo         | John        |       2000 |       5000 |
+|         140 | Patel       | Joshua      |       2000 |       5000 |
+|         141 | Rajs        | Trenna      |       2000 |       5000 |
+|         142 | Davies      | Curtis      |       2000 |       5000 |
+|         143 | Matos       | Randall     |       2000 |       5000 |
+|         144 | Vargas      | Peter       |       2000 |       5000 |
+|         120 | Weiss       | Matthew     |       5500 |       8500 |
+|         121 | Fripp       | Adam        |       5500 |       8500 |
+|         122 | Kaufling    | Payam       |       5500 |       8500 |
+|         123 | Vollman     | Shanta      |       5500 |       8500 |
+|         124 | Mourgos     | Kevin       |       5500 |       8500 |
++-------------+-------------+-------------+------------+------------+
+107 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.department_name from employees a inner join department b on a.department_id = b.department_id ;
+ERROR: 1146 (42S02): Table 'comp2.department' doesn't exist
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.employee_id, a.last_name, a.first_name, b.department_name from employees a inner join departments b on a.department_id = b.department_id ;
++-------------+-------------+-------------+------------------+
+| employee_id | last_name   | first_name  | department_name  |
++-------------+-------------+-------------+------------------+
+|         200 | Whalen      | Jennifer    | Administration   |
+|         201 | Hartstein   | Michael     | Marketing        |
+|         202 | Fay         | Pat         | Marketing        |
+|         114 | Raphaely    | Den         | Purchasing       |
+|         115 | Khoo        | Alexander   | Purchasing       |
+|         116 | Baida       | Shelli      | Purchasing       |
+|         117 | Tobias      | Sigal       | Purchasing       |
+|         118 | Himuro      | Guy         | Purchasing       |
+|         119 | Colmenares  | Karen       | Purchasing       |
+|         203 | Mavris      | Susan       | Human Resources  |
+|         120 | Weiss       | Matthew     | Shipping         |
+|         121 | Fripp       | Adam        | Shipping         |
+|         122 | Kaufling    | Payam       | Shipping         |
+|         123 | Vollman     | Shanta      | Shipping         |
+|         124 | Mourgos     | Kevin       | Shipping         |
+|         125 | Nayer       | Julia       | Shipping         |
+|         126 | Mikkilineni | Irene       | Shipping         |
+|         127 | Landry      | James       | Shipping         |
+|         128 | Markle      | Steven      | Shipping         |
+|         129 | Bissot      | Laura       | Shipping         |
+|         130 | Atkinson    | Mozhe       | Shipping         |
+|         131 | Marlow      | James       | Shipping         |
+|         132 | Olson       | TJ          | Shipping         |
+|         133 | Mallin      | Jason       | Shipping         |
+|         134 | Rogers      | Michael     | Shipping         |
+|         135 | Gee         | Ki          | Shipping         |
+|         136 | Philtanker  | Hazel       | Shipping         |
+|         137 | Ladwig      | Renske      | Shipping         |
+|         138 | Stiles      | Stephen     | Shipping         |
+|         139 | Seo         | John        | Shipping         |
+|         140 | Patel       | Joshua      | Shipping         |
+|         141 | Rajs        | Trenna      | Shipping         |
+|         142 | Davies      | Curtis      | Shipping         |
+|         143 | Matos       | Randall     | Shipping         |
+|         144 | Vargas      | Peter       | Shipping         |
+|         180 | Taylor      | Winston     | Shipping         |
+|         181 | Fleaur      | Jean        | Shipping         |
+|         182 | Sullivan    | Martha      | Shipping         |
+|         183 | Geoni       | Girard      | Shipping         |
+|         184 | Sarchand    | Nandita     | Shipping         |
+|         185 | Bull        | Alexis      | Shipping         |
+|         186 | Dellinger   | Julia       | Shipping         |
+|         187 | Cabrio      | Anthony     | Shipping         |
+|         188 | Chung       | Kelly       | Shipping         |
+|         189 | Dilly       | Jennifer    | Shipping         |
+|         190 | Gates       | Timothy     | Shipping         |
+|         191 | Perkins     | Randall     | Shipping         |
+|         192 | Bell        | Sarah       | Shipping         |
+|         193 | Everett     | Britney     | Shipping         |
+|         194 | McCain      | Samuel      | Shipping         |
+|         195 | Jones       | Vance       | Shipping         |
+|         196 | Walsh       | Alana       | Shipping         |
+|         197 | Feeney      | Kevin       | Shipping         |
+|         198 | OConnell    | Donald      | Shipping         |
+|         199 | Grant       | Douglas     | Shipping         |
+|         103 | Hunold      | Alexander   | IT               |
+|         104 | Ernst       | Bruce       | IT               |
+|         105 | Austin      | David       | IT               |
+|         106 | Pataballa   | Valli       | IT               |
+|         107 | Lorentz     | Diana       | IT               |
+|         204 | Baer        | Hermann     | Public Relations |
+|         145 | Russell     | John        | Sales            |
+|         146 | Partners    | Karen       | Sales            |
+|         147 | Errazuriz   | Alberto     | Sales            |
+|         148 | Cambrault   | Gerald      | Sales            |
+|         149 | Zlotkey     | Eleni       | Sales            |
+|         150 | Tucker      | Peter       | Sales            |
+|         151 | Bernstein   | David       | Sales            |
+|         152 | Hall        | Peter       | Sales            |
+|         153 | Olsen       | Christopher | Sales            |
+|         154 | Cambrault   | Nanette     | Sales            |
+|         155 | Tuvault     | Oliver      | Sales            |
+|         156 | King        | Janette     | Sales            |
+|         157 | Sully       | Patrick     | Sales            |
+|         158 | McEwen      | Allan       | Sales            |
+|         159 | Smith       | Lindsey     | Sales            |
+|         160 | Doran       | Louise      | Sales            |
+|         161 | Sewall      | Sarath      | Sales            |
+|         162 | Vishney     | Clara       | Sales            |
+|         163 | Greene      | Danielle    | Sales            |
+|         164 | Marvins     | Mattea      | Sales            |
+|         165 | Lee         | David       | Sales            |
+|         166 | Ande        | Sundar      | Sales            |
+|         167 | Banda       | Amit        | Sales            |
+|         168 | Ozer        | Lisa        | Sales            |
+|         169 | Bloom       | Harrison    | Sales            |
+|         170 | Fox         | Tayler      | Sales            |
+|         171 | Smith       | William     | Sales            |
+|         172 | Bates       | Elizabeth   | Sales            |
+|         173 | Kumar       | Sundita     | Sales            |
+|         174 | Abel        | Ellen       | Sales            |
+|         175 | Hutton      | Alyssa      | Sales            |
+|         176 | Taylor      | Jonathon    | Sales            |
+|         177 | Livingston  | Jack        | Sales            |
+|         179 | Johnson     | Charles     | Sales            |
+|         100 | King        | Steven      | Executive        |
+|         101 | Kochhar     | Neena       | Executive        |
+|         102 | De Haan     | Lex         | Executive        |
+|         108 | Greenberg   | Nancy       | Finance          |
+|         109 | Faviet      | Daniel      | Finance          |
+|         110 | Chen        | John        | Finance          |
+|         111 | Sciarra     | Ismael      | Finance          |
+|         112 | Urman       | Jose Manuel | Finance          |
+|         113 | Popp        | Luis        | Finance          |
+|         205 | Higgins     | Shelley     | Accounting       |
+|         206 | Gietz       | William     | Accounting       |
++-------------+-------------+-------------+------------------+
+106 rows in set (0.0785 sec)
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.department_name, b.last_name, b.first_name from departments a inner join employees b on a.employee_id = b.employee_id ;
+ERROR: 1054 (42S22): Unknown column 'a.employee_id' in 'on clause'
+ MySQL  localhost:3306 ssl  comp2  SQL > select a.department_name, b.last_name, b.first_name from departments a inner join employees b on a.employee_id = b.employee_id ;
